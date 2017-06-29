@@ -18,8 +18,8 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-        <ShowInput myName={this.state.name} />
-        <ShowName
+        <ShowName myName={this.state.name} />
+        <ShowInput
           myName={this.state.name}
           handleChange={this.handleChange}
         />

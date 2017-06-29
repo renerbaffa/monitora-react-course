@@ -1,23 +1,8 @@
-import React, { Component } from 'react';
-import ShowInput from './ShowInput';
+import React from 'react';
 
-class ShowName extends Component {
-  render() {
-    return (
-      <div>
-        <input
-          type="text"
-          value={this.props.myName}
-          onChange={this.props.handleChange}
-        />
-        <ShowInput myName={this.props.myName} />
-      </div>
-    );
-  }
-}
-
-export function myFunc() {
-
-}
+const ShowName = props =>
+  <p className="App-intro">
+    {props.myName}
+  </p>;
 
 export default ShowName;
