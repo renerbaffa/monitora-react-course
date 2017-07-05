@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal, { Header, Title, Footer, Body } from 'react-bootstrap/lib/Modal';
 
+import CountryForm from './CountryForm';
+
 class CountryDialog extends Component {
   render() {
     return (
@@ -14,7 +16,7 @@ class CountryDialog extends Component {
         </Header>
 
         <Body>
-          Body
+          <CountryForm />
         </Body>
 
         <Footer>
