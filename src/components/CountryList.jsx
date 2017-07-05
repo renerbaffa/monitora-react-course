@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Table from 'react-bootstrap/lib/Table';
+import EditIcon from 'react-icons/lib/fa/edit';
+import DeleteIcon from 'react-icons/lib/fa/trash';
 
 class CountryList extends Component {
   static propTypes = {
@@ -22,7 +24,10 @@ class CountryList extends Component {
           <td>{country.name}</td>
           <td>{country.iso2}</td>
           <td>{country.iso3}</td>
-          <td />
+          <td>
+            <EditIcon size={20} />
+            <DeleteIcon size={20} style={{ marginLeft: 8 }} />
+          </td>
         </tr>
       ),
     );
