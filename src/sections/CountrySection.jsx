@@ -32,7 +32,7 @@ class CountrySection extends Component {
     return (
       <div>
         <h1>Countries</h1>
-        <CountryList />
+        <CountryList countries={this.state.countries} />
         <div>
           <Button bsStyle="primary">+ Add country</Button>
         </div>
