@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import ShowName from './ShowName';
-import ShowInput from './ShowInput';
-
 class App extends Component {
-  state = {
-    name: 'Rener',
-  };
-
   handleChange = event => this.setState({ name: event.target.value });
 
   render() {
@@ -18,11 +11,6 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-        <ShowName myName={this.state.name} />
-        <ShowInput
-          myName={this.state.name}
-          handleChange={this.handleChange}
-        />
       </div>
     );
   }
