@@ -17,7 +17,7 @@ class CountryList extends Component {
 
     const countriesToShow = countries.map(
       country => (
-        <tr>
+        <tr key={country.id}>
           <td>{country.id}</td>
           <td>{country.name}</td>
           <td>{country.iso2}</td>
