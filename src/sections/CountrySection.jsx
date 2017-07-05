@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
 import CountryList from '../components/CountryList';
+import CountryDialog from '../components/CountryDialog';
 
 class CountrySection extends Component {
   state = {
+    open: false,
     countries: [
       {
         id: 1,
@@ -34,14 +36,23 @@ class CountrySection extends Component {
     ],
   };
 
+  toggleDialog = () => this.setState({ open: !this.state.open });
+
   render() {
     return (
       <div>
         <h1>Countries</h1>
         <CountryList countries={this.state.countries} />
         <div>
-          <Button bsStyle="primary">+ Add country</Button>
+          <Button bsStyle="primary" onClick={this.toggleDialog}>
+            + Add country
+          </Button>
         </div>
+
+        <CountryDialog
+          open={this.state.open}
+          toggleDialog={this.toggleDialog}
+        />
       </div>
     );
   }

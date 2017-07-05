@@ -20,7 +20,7 @@ class CountryDialog extends Component {
     const { open, toggleDialog } = this.props;
 
     return (
-      <Modal show={open}>
+      <Modal show={open} onHide={toggleDialog}>
         <Header>
           <Title style={{ textAlign: 'center' }}>
             Add country
