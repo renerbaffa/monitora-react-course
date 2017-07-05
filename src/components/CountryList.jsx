@@ -5,6 +5,13 @@ import Table from 'react-bootstrap/lib/Table';
 import EditIcon from 'react-icons/lib/fa/edit';
 import DeleteIcon from 'react-icons/lib/fa/trash';
 
+const ICON_SIZE = 20;
+const styles = {
+  tableIcons: {
+    cursor: 'pointer',
+  },
+};
+
 class CountryList extends Component {
   static propTypes = {
     countries: PropTypes.arrayOf(PropTypes.object),
@@ -25,8 +32,8 @@ class CountryList extends Component {
           <td>{country.iso2}</td>
           <td>{country.iso3}</td>
           <td>
-            <EditIcon size={20} />
-            <DeleteIcon size={20} style={{ marginLeft: 8 }} />
+            <EditIcon size={ICON_SIZE} style={styles.tableIcons} />
+            <DeleteIcon size={ICON_SIZE} style={{ ...styles.tableIcons, marginLeft: 8 }} />
           </td>
         </tr>
       ),
