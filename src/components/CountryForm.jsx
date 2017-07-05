@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 
+import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
+
+const styles = {
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  rightButton: {
+    marginLeft: 8,
+  },
+};
 
 class CountryForm extends Component {
   state = {
@@ -65,6 +76,13 @@ class CountryForm extends Component {
             />
           </Col>
         </FormGroup>
+
+        <div style={styles.buttonContainer}>
+          <Button>Close</Button>
+          <Button bsStyle="primary" style={styles.rightButton}>
+            Save changes
+          </Button>
+        </div>
       </Form>
     );
   }
