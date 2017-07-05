@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Table from 'react-bootstrap/lib/Table';
 
 class CountryList extends Component {
+  static propTypes = {
+    countries: PropTypes.arrayOf(PropTypes.object),
+  };
+
+  static defaultProps = {
+    countries: [],
+  };
+
   render() {
+    const { countries } = this.props;
+
     return (
       <Table
         bordered
