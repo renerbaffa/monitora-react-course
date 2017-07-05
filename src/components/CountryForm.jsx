@@ -20,14 +20,17 @@ const styles = {
 
 class CountryForm extends Component {
   static propTypes = {
+    onSaveCountry: PropTypes.func,
     toggleDialog: PropTypes.func,
   }
 
   static defaultProps = {
+    onSaveCountry: () => {},
     toggleDialog: () => {},
   }
 
   state = {
+    id: 0,
     name: '',
     iso2: '',
     iso3: '',
@@ -35,16 +38,33 @@ class CountryForm extends Component {
 
   handleChange = event =>
     this.setState({
-      ...this.state,
       [event.target.id]: event.target.value,
     });
 
+  handleSaveClick = () => {
+    this.props.onSaveCountry(this.state);
+  }
+
   render() {
-    const { name, iso2, iso3 } = this.state;
+    const { id, name, iso2, iso3 } = this.state;
     const { toggleDialog } = this.props;
 
     return (
       <Form horizontal>
+        <FormGroup controlId="id">
+          <Col sm={2}>
+            <ControlLabel>ID</ControlLabel>
+          </Col>
+          <Col sm={10}>
+            <FormControl
+              onChange={this.handleChange}
+              placeholder="Country ID"
+              type="number"
+              value={id}
+            />
+          </Col>
+        </FormGroup>
+
         <FormGroup controlId="name">
           <Col sm={2}>
             <ControlLabel>Name</ControlLabel>
@@ -91,7 +111,11 @@ class CountryForm extends Component {
           <Button onClick={toggleDialog}>
             Close
           </Button>
-          <Button bsStyle="primary" style={styles.rightButton}>
+          <Button
+            bsStyle="primary"
+            style={styles.rightButton}
+            onClick={this.handleSaveClick}
+          >
             Save changes
           </Button>
         </div>

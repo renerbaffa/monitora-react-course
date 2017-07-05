@@ -36,6 +36,12 @@ class CountrySection extends Component {
     ],
   };
 
+  handleSaveCountry = (country) => {
+    const countries = this.state.countries;
+    countries.push(country);
+    this.setState(countries);
+  };
+
   toggleDialog = () => this.setState({ open: !this.state.open });
 
   render() {
@@ -50,6 +56,7 @@ class CountrySection extends Component {
         </div>
 
         <CountryDialog
+          onSaveCountry={this.handleSaveCountry}
           open={this.state.open}
           toggleDialog={this.toggleDialog}
         />
