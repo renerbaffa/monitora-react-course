@@ -15,6 +15,18 @@ class CountryList extends Component {
   render() {
     const { countries } = this.props;
 
+    const countriesToShow = countries.map(
+      country => (
+        <tr>
+          <td>{country.id}</td>
+          <td>{country.name}</td>
+          <td>{country.iso2}</td>
+          <td>{country.iso3}</td>
+          <td />
+        </tr>
+      ),
+    );
+
     return (
       <Table
         bordered
@@ -33,27 +45,7 @@ class CountryList extends Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Brazil</td>
-            <td>BR</td>
-            <td>BRA</td>
-            <td />
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Canada</td>
-            <td>CA</td>
-            <td>CAN</td>
-            <td />
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>United States of America</td>
-            <td>US</td>
-            <td>USA</td>
-            <td />
-          </tr>
+          {countriesToShow}
         </tbody>
       </Table>
     );

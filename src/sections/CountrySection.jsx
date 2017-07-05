@@ -25,6 +25,12 @@ class CountrySection extends Component {
         iso2: 'US',
         iso3: 'USA',
       },
+      {
+        id: 4,
+        name: 'Argentina',
+        iso2: 'AR',
+        iso3: 'ARG',
+      },
     ],
   };
 
