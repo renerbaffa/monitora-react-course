@@ -7,7 +7,11 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  handleChange = event => this.setState({ name: event.target.value });
+  state = {
+    open: true,
+  };
+
+  toggleDialog = () => this.setState({ open: !this.state.open });
 
   render() {
     return (
@@ -16,7 +20,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <CountrySection />
-        <CountryDialog />
+        <CountryDialog
+          open={this.state.open}
+          toggleDialog={this.toggleDialog}
+        />
       </div>
     );
   }

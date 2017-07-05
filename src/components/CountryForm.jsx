@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
@@ -18,6 +19,14 @@ const styles = {
 };
 
 class CountryForm extends Component {
+  static propTypes = {
+    toggleDialog: PropTypes.func,
+  }
+
+  static defaultProps = {
+    toggleDialog: () => {},
+  }
+
   state = {
     name: '',
     iso2: '',
@@ -32,6 +41,7 @@ class CountryForm extends Component {
 
   render() {
     const { name, iso2, iso3 } = this.state;
+    const { toggleDialog } = this.props;
 
     return (
       <Form horizontal>
@@ -78,7 +88,9 @@ class CountryForm extends Component {
         </FormGroup>
 
         <div style={styles.buttonContainer}>
-          <Button>Close</Button>
+          <Button onClick={toggleDialog}>
+            Close
+          </Button>
           <Button bsStyle="primary" style={styles.rightButton}>
             Save changes
           </Button>

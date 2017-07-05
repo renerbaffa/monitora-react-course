@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Modal, { Header, Title, Body } from 'react-bootstrap/lib/Modal';
 
 import CountryForm from './CountryForm';
 
 class CountryDialog extends Component {
+  static propTypes = {
+    open: PropTypes.bool,
+    toggleDialog: PropTypes.func,
+  }
+
+  static defaultProps = {
+    open: false,
+    toggleDialog: () => {},
+  }
+
   render() {
+    const { open, toggleDialog } = this.props;
+
     return (
-      <Modal show>
+      <Modal show={open}>
         <Header>
           <Title style={{ textAlign: 'center' }}>
             Add country
@@ -15,7 +28,7 @@ class CountryDialog extends Component {
         </Header>
 
         <Body>
-          <CountryForm />
+          <CountryForm toggleDialog={toggleDialog} />
         </Body>
       </Modal>
     );
