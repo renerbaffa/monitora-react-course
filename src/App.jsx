@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Button from 'react-bootstrap/lib/Button';
+import CountrySection from './sections/CountrySection';
 
 import logo from './logo.svg';
 import './App.css';
@@ -14,7 +14,7 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-        <Button bsStyle="success">Success btn</Button>
+        <CountrySection />
       </div>
     );
   }
