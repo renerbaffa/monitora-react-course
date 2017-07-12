@@ -16,7 +16,6 @@ export async function fetchCountries(cb) {
 
 export async function saveCountry(country, cb) {
   try {
-    const { id, name, iso2 } = country;
     const c = { country: { id: country.id, name: country.name, iso: country.iso2 } };
     await doPostRequest(SAVE_URL, c);
     cb(c.country);
