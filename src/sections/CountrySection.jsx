@@ -7,6 +7,7 @@ import CountryDialog from '../components/CountryDialog';
 
 class CountrySection extends Component {
   state = {
+    country: undefined,
     open: false,
     countries: [
       {
@@ -36,6 +37,12 @@ class CountrySection extends Component {
     ],
   };
 
+  handleEditCountry = countryId =>
+    this.setState({
+      country: this.state.countries.find(element => element.id === countryId),
+      open: true,
+    });
+
   handleSaveCountry = (country) => {
     const countries = this.state.countries;
     countries.push(country);
@@ -50,12 +57,15 @@ class CountrySection extends Component {
   toggleDialog = () => this.setState({ open: !this.state.open });
 
   render() {
+    const { countries, country, open } = this.state;
+
     return (
       <div>
         <h1>Countries</h1>
         <CountryList
-          countries={this.state.countries}
+          countries={countries}
           onDeleteCountry={this.handleDeleteCountry}
+          onEditCountry={this.handleEditCountry}
         />
         <div>
           <Button bsStyle="primary" onClick={this.toggleDialog}>
@@ -64,8 +74,9 @@ class CountrySection extends Component {
         </div>
 
         <CountryDialog
+          country={country}
           onSaveCountry={this.handleSaveCountry}
-          open={this.state.open}
+          open={open}
           toggleDialog={this.toggleDialog}
         />
       </div>

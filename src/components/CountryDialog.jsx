@@ -7,19 +7,21 @@ import CountryForm from './CountryForm';
 
 class CountryDialog extends Component {
   static propTypes = {
+    country: PropTypes.shape({}),
     open: PropTypes.bool,
     onSaveCountry: PropTypes.func,
     toggleDialog: PropTypes.func,
   }
 
   static defaultProps = {
+    country: undefined,
     open: false,
     onSaveCountry: () => {},
     toggleDialog: () => {},
   }
 
   render() {
-    const { open, onSaveCountry, toggleDialog } = this.props;
+    const { country, open, onSaveCountry, toggleDialog } = this.props;
 
     return (
       <Modal show={open} onHide={toggleDialog}>
@@ -31,6 +33,7 @@ class CountryDialog extends Component {
 
         <Body>
           <CountryForm
+            country={country}
             onSaveCountry={onSaveCountry}
             toggleDialog={toggleDialog}
           />

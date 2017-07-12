@@ -20,21 +20,27 @@ const styles = {
 
 class CountryForm extends Component {
   static propTypes = {
+    country: PropTypes.shape({}),
     onSaveCountry: PropTypes.func,
     toggleDialog: PropTypes.func,
   }
 
   static defaultProps = {
+    country: {
+      id: 0,
+      name: '',
+      iso2: '',
+      iso3: '',
+    },
     onSaveCountry: () => {},
     toggleDialog: () => {},
   }
 
-  state = {
-    id: 0,
-    name: '',
-    iso2: '',
-    iso3: '',
-  };
+  state = this.props.country;
+
+  componentWillReceiveProps() {
+    this.setState({ ...this.props.country });
+  }
 
   handleChange = event =>
     this.setState({
