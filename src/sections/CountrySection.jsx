@@ -39,7 +39,7 @@ class CountrySection extends Component {
   handleSaveCountry = (country) => {
     const countries = this.state.countries;
     countries.push(country);
-    this.setState(countries);
+    this.setState({ countries, open: false });
   };
 
   toggleDialog = () => this.setState({ open: !this.state.open });
