@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/lib/Button';
 import CountryList from '../components/CountryList';
 import CountryDialog from '../components/CountryDialog';
 
+import fetchCountries from '../sources/CountrySource';
+
 class CountrySection extends Component {
   state = {
     country: undefined,
@@ -36,6 +38,10 @@ class CountrySection extends Component {
       },
     ],
   };
+
+  componentDidMount() {
+    fetchCountries();
+  }
 
   handleEditCountry = countryId =>
     this.setState({
