@@ -1,7 +1,8 @@
 import doGetRequest from '../utils/requests';
+import backend from '../utils/constants';
 
 // @baffa: extract main URL for a constant file
-const GET_URL = 'http://34.212.232.97:8080/city/getAllCity';
+const GET_URL = `${backend}/country/getAllCountry`;
 
 async function fetchCountries(cb) {
   try {
