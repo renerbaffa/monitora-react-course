@@ -46,7 +46,7 @@ class CountrySection extends Component {
   handleSaveCountry = (country) => {
     const countries = this.state.countries.filter(element => element.id !== country.id);
     countries.push(country);
-    this.setState({ countries, open: false });
+    this.setState({ countries, open: false, country: undefined });
   };
 
   handleDeleteCountry = (countryId) => {
@@ -54,7 +54,7 @@ class CountrySection extends Component {
     this.setState({ countries });
   }
 
-  toggleDialog = () => this.setState({ open: !this.state.open });
+  toggleDialog = () => this.setState({ open: !this.state.open, country: undefined });
 
   render() {
     const { countries, country, open } = this.state;
