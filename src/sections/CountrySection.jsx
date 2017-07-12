@@ -11,36 +11,11 @@ class CountrySection extends Component {
   state = {
     country: undefined,
     open: false,
-    countries: [
-      {
-        id: 1,
-        name: 'Brazil',
-        iso2: 'BR',
-        iso3: 'BRA',
-      },
-      {
-        id: 2,
-        name: 'Canada',
-        iso2: 'CA',
-        iso3: 'CAN',
-      },
-      {
-        id: 3,
-        name: 'United States of America',
-        iso2: 'US',
-        iso3: 'USA',
-      },
-      {
-        id: 4,
-        name: 'Argentina',
-        iso2: 'AR',
-        iso3: 'ARG',
-      },
-    ],
+    countries: [],
   };
 
   componentDidMount() {
-    fetchCountries();
+    fetchCountries(countries => this.setState({ countries }));
   }
 
   handleEditCountry = countryId =>
