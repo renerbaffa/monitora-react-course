@@ -42,13 +42,21 @@ class CountrySection extends Component {
     this.setState({ countries, open: false });
   };
 
+  handleDeleteCountry = (countryId) => {
+    const countries = this.state.countries.filter(element => element.id !== countryId);
+    this.setState({ countries });
+  }
+
   toggleDialog = () => this.setState({ open: !this.state.open });
 
   render() {
     return (
       <div>
         <h1>Countries</h1>
-        <CountryList countries={this.state.countries} />
+        <CountryList
+          countries={this.state.countries}
+          onDeleteCountry={this.handleDeleteCountry}
+        />
         <div>
           <Button bsStyle="primary" onClick={this.toggleDialog}>
             + Add country

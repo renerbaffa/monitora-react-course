@@ -15,10 +15,12 @@ const styles = {
 class CountryList extends Component {
   static propTypes = {
     countries: PropTypes.arrayOf(PropTypes.object),
+    onDeleteCountry: PropTypes.func,
   };
 
   static defaultProps = {
     countries: [],
+    onDeleteCountry: () => {},
   };
 
   render() {
@@ -33,7 +35,13 @@ class CountryList extends Component {
           <td>{country.iso3}</td>
           <td>
             <EditIcon size={ICON_SIZE} style={styles.tableIcons} />
-            <DeleteIcon size={ICON_SIZE} style={{ ...styles.tableIcons, marginLeft: 8 }} />
+            <DeleteIcon
+              size={ICON_SIZE}
+              style={{ ...styles.tableIcons, marginLeft: 8 }}
+              onClick={() => {
+                this.props.onDeleteCountry(country.id);
+              }}
+            />
           </td>
         </tr>
       ),
