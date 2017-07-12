@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-function doGetRequest(url, params) {
+export function doGetRequest(url, params) {
   return request
     .get(url)
     .send(params)
@@ -8,4 +8,10 @@ function doGetRequest(url, params) {
     .type('application/json');
 }
 
-export default doGetRequest;
+export function doPostRequest(url, params) {
+  return request
+    .post(url)
+    .send(params)
+    .accept('application/json')
+    .type('application/json');
+}

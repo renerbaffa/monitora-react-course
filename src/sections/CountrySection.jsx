@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import CountryList from '../components/CountryList';
 import CountryDialog from '../components/CountryDialog';
 
-import fetchCountries from '../sources/CountrySource';
+import { fetchCountries, saveCountry } from '../sources/CountrySource';
 
 class CountrySection extends Component {
   state = {
@@ -25,9 +25,14 @@ class CountrySection extends Component {
     });
 
   handleSaveCountry = (country) => {
-    const countries = this.state.countries.filter(element => element.id !== country.id);
-    countries.push(country);
-    this.setState({ countries, open: false, country: undefined });
+    saveCountry(
+      country,
+      (c) => {
+        const countries = this.state.countries.filter(element => element.id !== c.id);
+        countries.push(c);
+        this.setState({ countries, open: false, country: undefined });
+      },
+    );
   };
 
   handleDeleteCountry = (countryId) => {
