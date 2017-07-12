@@ -27,10 +27,8 @@ class CountrySection extends Component {
   handleSaveCountry = (country) => {
     saveCountry(
       country,
-      (c) => {
-        const countries = this.state.countries.filter(element => element.id !== c.id);
-        countries.push(c);
-        this.setState({ countries, open: false, country: undefined });
+      () => {
+        fetchCountries(countries => this.setState({ countries, open: false, country: undefined }));
       },
     );
   };
