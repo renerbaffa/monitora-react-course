@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import request from 'superagent';
+
 import Button from 'react-bootstrap/lib/Button';
 
 import CountryList from '../components/CountryList';
@@ -36,6 +38,18 @@ class CountrySection extends Component {
       },
     ],
   };
+
+  componentDidMount() {
+    request
+      .get('http://34.212.232.97:8080/city/getAllCity')
+      .accept('application/json')
+      .type('application/json')
+      .end((err, res) => {
+        console.log(res.body);
+        console.log('----');
+        console.log(err);
+      });
+  }
 
   handleEditCountry = countryId =>
     this.setState({
