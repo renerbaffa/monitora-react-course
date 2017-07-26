@@ -30,7 +30,7 @@ class CountrySection extends Component {
   fetchCountries = () => {
     CountrySource.fetchCountries().then(
       countries => this.setState({ countries }),
-      errorMessage => this.props.showError(errorMessage),
+      this.props.showError,
     );
   }
 
@@ -42,12 +42,8 @@ class CountrySection extends Component {
 
   handleSaveCountry = (country) => {
     CountrySource.saveCountry(country).then(
-      (data) => {
-        if (data) {
-          this.fetchCountries();
-        }
-      },
-      errorMessage => this.props.showError(errorMessage),
+      this.fetchCountries,
+      this.props.showError,
     );
     this.setState({ open: false, country: undefined });
   };
