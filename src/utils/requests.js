@@ -9,8 +9,9 @@ export function doGetRequest(url) {
       .end((err, res) => {
         if (res && res.body) {
           resolve(res.body);
+        } else {
+          reject('Error on fetching for countries');
         }
-        // @TODO: need to handle error case
       }),
     );
 }
@@ -25,8 +26,9 @@ export function doPostRequest(url, params) {
       .end((err, res) => {
         if (res && res.status && res.status === 200) {
           resolve(true);
+        } else {
+          reject('Error on saving country');
         }
-        // @TODO: need to handle error case
       }),
   );
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -8,6 +9,14 @@ import CountryList from '../components/CountryList';
 import CountryDialog from '../components/CountryDialog';
 
 class CountrySection extends Component {
+  static propTypes = {
+    showError: PropTypes.func,
+  }
+
+  static defaultProps = {
+    showError: () => {},
+  }
+
   state = {
     country: undefined,
     open: false,
@@ -21,6 +30,7 @@ class CountrySection extends Component {
   fetchCountries = () => {
     CountrySource.fetchCountries().then(
       countries => this.setState({ countries }),
+      errorMessage => this.props.showError(errorMessage),
     );
   }
 
@@ -31,12 +41,15 @@ class CountrySection extends Component {
     });
 
   handleSaveCountry = (country) => {
-    CountrySource.saveCountry(country).then((data) => {
-      if (data) {
-        this.fetchCountries();
-      }
-      this.setState({ open: false, country: undefined });
-    });
+    CountrySource.saveCountry(country).then(
+      (data) => {
+        if (data) {
+          this.fetchCountries();
+        }
+      },
+      errorMessage => this.props.showError(errorMessage),
+    );
+    this.setState({ open: false, country: undefined });
   };
 
   handleDeleteCountry = (countryId) => {
