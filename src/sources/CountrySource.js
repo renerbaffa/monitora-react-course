@@ -1,23 +1,11 @@
-import request from 'superagent';
+import doGetRequest from '../utils/requests';
 
 import backend from '../utils/constants';
 
 const FETCH_COUNTRIES_URL = `${backend}/city/getAllCity`;
 
 const CountrySource = {
-  fetchCountries: () =>
-    new Promise((resolve, reject) =>
-      request
-        .get(FETCH_COUNTRIES_URL)
-        .accept('application/json')
-        .type('application/json')
-        .end((err, res) => {
-          if (res && res.body) {
-            resolve(res.body);
-          }
-          // @TODO: need to handle error case
-        }),
-    ),
+  fetchCountries: () => doGetRequest(FETCH_COUNTRIES_URL),
 };
 
 export default CountrySource;
