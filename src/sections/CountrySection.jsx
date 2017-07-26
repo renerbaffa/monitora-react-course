@@ -37,6 +37,8 @@ class CountrySection extends Component {
   fetchCountries = () => {
     CountrySource.fetchCountries().then(
       countries => this.setState({ countries }),
+    )
+    .catch(
       this.props.showError,
     );
   }
@@ -52,6 +54,7 @@ class CountrySection extends Component {
     this.closeDialog();
     CountrySource.saveCountry(country).then(
       this.fetchCountries,
+    ).catch(
       this.props.showError,
     );
   };

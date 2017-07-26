@@ -2,7 +2,7 @@ import { doGetRequest, doPostRequest } from '../utils/requests';
 
 import backend from '../utils/constants';
 
-const FETCH_COUNTRIES_URL = `${backend}/city/getAllCity`;
+const FETCH_COUNTRIES_URL = `${backend}/city/getAllCitys`;
 const SAVE_COUNTRY_URL = `${backend}/country/saveCountry`;
 
 const CountrySource = {
