@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/lib/Button';
 import Modal, { Header, Title, Body, Footer } from 'react-bootstrap/lib/Modal';
+
+import withDialog from './hocs/withDialog';
 
 import CountrySection from './sections/CountrySection';
 
@@ -9,20 +12,31 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  state = {
+  static propTypes = {
+    onCloseDialog: PropTypes.func,
+    onOpenDialog: PropTypes.func,
+    open: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    onCloseDialog: () => {},
+    onOpenDialog: () => {},
     open: false,
+  }
+
+  state = {
     errorMessage: '',
   }
 
   showError = (errorMessage = '') => {
-    this.setState({ open: true, errorMessage });
-    setTimeout(this.hideError, 3000);
+    this.props.onOpenDialog();
+    this.setState({ errorMessage });
+    setTimeout(this.props.onCloseDialog, 3000);
   }
 
-  hideError = () => this.setState({ open: false, errorMessage: '' });
-
   render() {
-    const { open, errorMessage } = this.state;
+    const { errorMessage } = this.state;
+    const { open, onCloseDialog } = this.props;
 
     return (
       <div className="App">
@@ -31,7 +45,7 @@ class App extends Component {
         </div>
         <CountrySection showError={this.showError} />
 
-        <Modal show={open} onHide={this.hideError}>
+        <Modal show={open} onHide={onCloseDialog}>
           <Header>
             <Title style={{ textAlign: 'center' }}>
               Error
@@ -43,7 +57,7 @@ class App extends Component {
           </Body>
 
           <Footer>
-            <Button bsStyle="primary" onClick={this.hideError}>OK</Button>
+            <Button bsStyle="primary" onClick={onCloseDialog}>OK</Button>
           </Footer>
         </Modal>
       </div>
@@ -51,4 +65,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withDialog(App);
