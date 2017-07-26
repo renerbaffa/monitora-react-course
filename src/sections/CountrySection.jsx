@@ -15,6 +15,10 @@ class CountrySection extends Component {
   };
 
   componentDidMount() {
+    this.fetchCountries();
+  }
+
+  fetchCountries = () => {
     CountrySource.fetchCountries().then(
       countries => this.setState({ countries }),
     );
@@ -27,8 +31,12 @@ class CountrySection extends Component {
     });
 
   handleSaveCountry = (country) => {
-    CountrySource.saveCountry(country);
-    this.setState({ open: false, country: undefined });
+    CountrySource.saveCountry(country).then((data) => {
+      if (data) {
+        this.fetchCountries();
+      }
+      this.setState({ open: false, country: undefined });
+    });
   };
 
   handleDeleteCountry = (countryId) => {

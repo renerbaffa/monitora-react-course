@@ -11,7 +11,7 @@ const CountrySource = {
     // format data according to backend expectations
     const c = { country: { id: country.id, name: country.name, iso: country.iso2 } };
 
-    doPostRequest(SAVE_COUNTRY_URL, c);
+    return doPostRequest(SAVE_COUNTRY_URL, c);
   },
 };
 
