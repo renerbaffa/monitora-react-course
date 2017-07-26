@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import request from 'superagent';
-
 import Button from 'react-bootstrap/lib/Button';
+
+import CountrySource from '../sources/CountrySource';
 
 import CountryList from '../components/CountryList';
 import CountryDialog from '../components/CountryDialog';
@@ -15,16 +15,9 @@ class CountrySection extends Component {
   };
 
   componentDidMount() {
-    request
-      .get('http://34.212.232.97:8080/city/getAllCity')
-      .accept('application/json')
-      .type('application/json')
-      .end((err, res) => {
-        if (res && res.body) {
-          this.setState({ countries: res.body });
-        }
-        // @todo: need to handle error case
-      });
+    CountrySource.fetchCountries().then(
+      countries => this.setState({ countries }),
+    );
   }
 
   handleEditCountry = countryId =>
