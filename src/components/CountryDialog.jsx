@@ -10,21 +10,21 @@ class CountryDialog extends Component {
     country: PropTypes.shape({}),
     open: PropTypes.bool,
     onSaveCountry: PropTypes.func,
-    toggleDialog: PropTypes.func,
+    onCloseDialog: PropTypes.func,
   }
 
   static defaultProps = {
     country: undefined,
     open: false,
     onSaveCountry: () => {},
-    toggleDialog: () => {},
+    onCloseDialog: () => {},
   }
 
   render() {
-    const { country, open, onSaveCountry, toggleDialog } = this.props;
+    const { country, open, onSaveCountry, onCloseDialog } = this.props;
 
     return (
-      <Modal show={open} onHide={toggleDialog}>
+      <Modal show={open} onHide={onCloseDialog}>
         <Header>
           <Title style={{ textAlign: 'center' }}>
             Add country
@@ -35,7 +35,7 @@ class CountryDialog extends Component {
           <CountryForm
             country={country}
             onSaveCountry={onSaveCountry}
-            toggleDialog={toggleDialog}
+            onCloseDialog={onCloseDialog}
           />
         </Body>
       </Modal>

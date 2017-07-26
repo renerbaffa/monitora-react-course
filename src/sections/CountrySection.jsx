@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/lib/Button';
 
+import withDialog from '../hocs/withDialog';
+
 import CountrySource from '../sources/CountrySource';
 
 import CountryList from '../components/CountryList';
@@ -10,16 +12,21 @@ import CountryDialog from '../components/CountryDialog';
 
 class CountrySection extends Component {
   static propTypes = {
+    onCloseDialog: PropTypes.func,
+    onOpenDialog: PropTypes.func,
+    open: PropTypes.bool,
     showError: PropTypes.func,
   }
 
   static defaultProps = {
+    onCloseDialog: () => {},
+    onOpenDialog: () => {},
+    open: false,
     showError: () => {},
   }
 
   state = {
     country: undefined,
-    open: false,
     countries: [],
   };
 
@@ -34,18 +41,19 @@ class CountrySection extends Component {
     );
   }
 
-  handleEditCountry = countryId =>
+  handleEditCountry = (countryId) => {
+    this.props.onOpenDialog();
     this.setState({
       country: this.state.countries.find(element => element.id === countryId),
-      open: true,
     });
+  }
 
   handleSaveCountry = (country) => {
+    this.closeDialog();
     CountrySource.saveCountry(country).then(
       this.fetchCountries,
       this.props.showError,
     );
-    this.setState({ open: false, country: undefined });
   };
 
   handleDeleteCountry = (countryId) => {
@@ -53,10 +61,14 @@ class CountrySection extends Component {
     this.setState({ countries });
   }
 
-  toggleDialog = () => this.setState({ open: !this.state.open, country: undefined });
+  closeDialog = () => {
+    this.props.onCloseDialog();
+    this.setState({ country: undefined });
+  }
 
   render() {
-    const { countries, country, open } = this.state;
+    const { countries, country } = this.state;
+    const { open, onOpenDialog } = this.props;
 
     return (
       <div>
@@ -67,7 +79,7 @@ class CountrySection extends Component {
           onEditCountry={this.handleEditCountry}
         />
         <div>
-          <Button bsStyle="primary" onClick={this.toggleDialog}>
+          <Button bsStyle="primary" onClick={onOpenDialog}>
             + Add country
           </Button>
         </div>
@@ -76,11 +88,11 @@ class CountrySection extends Component {
           country={country}
           onSaveCountry={this.handleSaveCountry}
           open={open}
-          toggleDialog={this.toggleDialog}
+          onCloseDialog={this.closeDialog}
         />
       </div>
     );
   }
 }
 
-export default CountrySection;
+export default withDialog(CountrySection);

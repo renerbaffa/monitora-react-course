@@ -22,7 +22,7 @@ class CountryForm extends Component {
   static propTypes = {
     country: PropTypes.shape({}),
     onSaveCountry: PropTypes.func,
-    toggleDialog: PropTypes.func,
+    onCloseDialog: PropTypes.func,
   }
 
   static defaultProps = {
@@ -33,7 +33,7 @@ class CountryForm extends Component {
       iso3: '',
     },
     onSaveCountry: () => {},
-    toggleDialog: () => {},
+    onCloseDialog: () => {},
   }
 
   state = this.props.country;
@@ -53,7 +53,7 @@ class CountryForm extends Component {
 
   render() {
     const { id, name, iso2, iso3 } = this.state;
-    const { toggleDialog } = this.props;
+    const { onCloseDialog } = this.props;
 
     return (
       <Form horizontal>
@@ -114,7 +114,7 @@ class CountryForm extends Component {
         </FormGroup>
 
         <div style={styles.buttonContainer}>
-          <Button onClick={toggleDialog}>
+          <Button onClick={onCloseDialog}>
             Close
           </Button>
           <Button
