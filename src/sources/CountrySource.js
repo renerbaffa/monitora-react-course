@@ -1,10 +1,14 @@
 import request from 'superagent';
 
+import backend from '../utils/constants';
+
+const FETCH_COUNTRIES_URL = `${backend}/city/getAllCity`;
+
 const CountrySource = {
   fetchCountries: () =>
     new Promise((resolve, reject) =>
       request
-        .get('http://34.212.232.97:8080/city/getAllCity')
+        .get(FETCH_COUNTRIES_URL)
         .accept('application/json')
         .type('application/json')
         .end((err, res) => {
