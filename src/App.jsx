@@ -14,7 +14,12 @@ class App extends Component {
     errorMessage: '',
   }
 
-  toggleDialog = (errorMessage = '') => this.setState({ open: !this.state.open, errorMessage });
+  showError = (errorMessage = '') => {
+    this.setState({ open: true, errorMessage });
+    setTimeout(this.hideError, 3000);
+  }
+
+  hideError = () => this.setState({ open: false, errorMessage: '' });
 
   render() {
     const { open, errorMessage } = this.state;
@@ -24,9 +29,9 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-        <CountrySection showError={this.toggleDialog} />
+        <CountrySection showError={this.showError} />
 
-        <Modal show={open} onHide={this.toggleDialog}>
+        <Modal show={open} onHide={this.hideError}>
           <Header>
             <Title style={{ textAlign: 'center' }}>
               Error
@@ -38,7 +43,7 @@ class App extends Component {
           </Body>
 
           <Footer>
-            <Button bsStyle="primary" onClick={() => this.toggleDialog()}>OK</Button>
+            <Button bsStyle="primary" onClick={this.hideError}>OK</Button>
           </Footer>
         </Modal>
       </div>
