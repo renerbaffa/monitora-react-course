@@ -11,32 +11,7 @@ class CountrySection extends Component {
   state = {
     country: undefined,
     open: false,
-    countries: [
-      {
-        id: 1,
-        name: 'Brazil',
-        iso2: 'BR',
-        iso3: 'BRA',
-      },
-      {
-        id: 2,
-        name: 'Canada',
-        iso2: 'CA',
-        iso3: 'CAN',
-      },
-      {
-        id: 3,
-        name: 'United States of America',
-        iso2: 'US',
-        iso3: 'USA',
-      },
-      {
-        id: 4,
-        name: 'Argentina',
-        iso2: 'AR',
-        iso3: 'ARG',
-      },
-    ],
+    countries: [],
   };
 
   componentDidMount() {
@@ -45,9 +20,10 @@ class CountrySection extends Component {
       .accept('application/json')
       .type('application/json')
       .end((err, res) => {
-        console.log(res.body);
-        console.log('----');
-        console.log(err);
+        if (res && res.body) {
+          this.setState({ countries: res.body });
+        }
+        // @todo: need to handle error case
       });
   }
 
