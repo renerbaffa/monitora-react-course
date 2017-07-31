@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import { Container } from 'flux/utils';
 import Button from 'react-bootstrap/lib/Button';
+
+import { fetchCountries } from '../actions/countryActions';
 
 import withDialog from '../hocs/withDialog';
 
+import CountryStore from '../stores/CountryStore';
 import CountrySource from '../sources/CountrySource';
 
 import CountryList from '../components/CountryList';
@@ -27,11 +30,12 @@ class CountrySection extends Component {
 
   state = {
     country: undefined,
-    countries: [],
+    // countries: [],
   };
 
   componentDidMount() {
-    this.fetchCountries();
+    // this.fetchCountries();
+    fetchCountries();
   }
 
   fetchCountries = () => {
@@ -70,8 +74,8 @@ class CountrySection extends Component {
   }
 
   render() {
-    const { countries, country } = this.state;
-    const { open, onOpenDialog } = this.props;
+    const { country } = this.state;
+    const { open, countries, onOpenDialog } = this.props;
 
     return (
       <div>
@@ -98,4 +102,25 @@ class CountrySection extends Component {
   }
 }
 
-export default withDialog(CountrySection);
+function getStores() {
+  return [
+    CountryStore,
+  ];
+}
+
+function getState() {
+  const state = CountryStore.getState();
+  return {
+    countries: state.countries,
+  };
+}
+
+const CountrySectionWithDialog = withDialog(CountrySection);
+
+const CountryContainer = (props) => <CountrySectionWithDialog {...props} />;
+
+export default Container.createFunctional(
+  CountryContainer,
+  getStores,
+  getState
+);
