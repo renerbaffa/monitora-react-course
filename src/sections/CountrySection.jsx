@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/lib/Button';
 
+import { connect } from 'react-redux';
+import { fetchCountries, postCountry } from '../actions/countryActions';
+
 import withDialog from '../hocs/withDialog';
 
 import CountrySource from '../sources/CountrySource';
@@ -31,7 +34,8 @@ class CountrySection extends Component {
   };
 
   componentDidMount() {
-    this.fetchCountries();
+    // this.fetchCountries();
+    this.props.onFetchCountries();
   }
 
   fetchCountries = () => {
@@ -52,11 +56,12 @@ class CountrySection extends Component {
 
   handleSaveCountry = (country) => {
     this.closeDialog();
-    CountrySource.saveCountry(country).then(
-      this.fetchCountries,
-    ).catch(
-      this.props.showError,
-    );
+    this.props.onAddCountry(country);
+    // CountrySource.saveCountry(country).then(
+    //   this.fetchCountries,
+    // ).catch(
+    //   this.props.showError,
+    // );
   };
 
   handleDeleteCountry = (countryId) => {
@@ -70,7 +75,8 @@ class CountrySection extends Component {
   }
 
   render() {
-    const { countries, country } = this.state;
+    const { countries } = this.props;
+    const { country } = this.state;
     const { open, onOpenDialog } = this.props;
 
     return (
@@ -98,4 +104,17 @@ class CountrySection extends Component {
   }
 }
 
-export default withDialog(CountrySection);
+const mapStateToProps = ({ countries }) => {
+  return {
+    countries,
+  };
+};
+const mapDispatchtoProps = {
+  onAddCountry: postCountry,
+  onFetchCountries: fetchCountries,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchtoProps,
+)(withDialog(CountrySection));
