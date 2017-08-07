@@ -28,10 +28,11 @@ class CountryList extends Component {
   render() {
     const { countries } = this.props;
 
-    const countriesToShow = countries.map(
-      country => (
-        <tr key={country.id}>
-          <td>{country.id}</td>
+    const countriesToShow = countries.ids.map((countryId) => {
+      const country = countries.content[countryId];
+      return (
+        <tr key={countryId}>
+          <td>{countryId}</td>
           <td>{country.name}</td>
           <td>{country.iso2}</td>
           <td>{country.iso3}</td>
@@ -40,20 +41,20 @@ class CountryList extends Component {
               size={ICON_SIZE}
               style={styles.tableIcons}
               onClick={() => {
-                this.props.onEditCountry(country.id);
+                this.props.onEditCountry(countryId);
               }}
             />
             <DeleteIcon
               size={ICON_SIZE}
               style={{ ...styles.tableIcons, marginLeft: 8 }}
               onClick={() => {
-                this.props.onDeleteCountry(country.id);
+                this.props.onDeleteCountry(countryId);
               }}
             />
           </td>
         </tr>
-      ),
-    );
+      );
+    });
 
     return (
       <Table

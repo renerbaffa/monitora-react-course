@@ -14,6 +14,13 @@ export function addCountry(country) {
   };
 }
 
+export function editCountry(country) {
+  return {
+    type: 'EDIT_COUNTRY',
+    country,
+  };
+}
+
 export function fetchCountries() {
   return async (dispatch) => {
     try {
@@ -30,6 +37,17 @@ export function postCountry(country) {
     try {
       await CountrySource.saveCountry(country);
       dispatch(addCountry(country));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function putCountry(country) {
+  return async (dispatch) => {
+    try {
+      await CountrySource.saveCountry(country);
+      dispatch(editCountry(country));
     } catch (e) {
       console.log(e);
     }

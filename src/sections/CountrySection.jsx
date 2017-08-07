@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/lib/Button';
 
 import { connect } from 'react-redux';
-import { fetchCountries, postCountry } from '../actions/countryActions';
+import { fetchCountries, postCountry, putCountry } from '../actions/countryActions';
 
 import withDialog from '../hocs/withDialog';
 
@@ -29,34 +29,28 @@ class CountrySection extends Component {
   }
 
   state = {
-    country: undefined,
+    selectedCountryId: undefined,
     countries: [],
   };
 
   componentDidMount() {
-    // this.fetchCountries();
     this.props.onFetchCountries();
-  }
-
-  fetchCountries = () => {
-    CountrySource.fetchCountries().then(
-      countries => this.setState({ countries }),
-    )
-    .catch(
-      this.props.showError,
-    );
   }
 
   handleEditCountry = (countryId) => {
     this.props.onOpenDialog();
     this.setState({
-      country: this.state.countries.find(element => element.id === countryId),
+      selectedCountryId: countryId,
     });
   }
 
   handleSaveCountry = (country) => {
     this.closeDialog();
-    this.props.onAddCountry(country);
+    if (this.state.selectedCountryId) {
+      this.props.onPutCountry(country);
+    } else {
+      this.props.onAddCountry(country);
+    }
     // CountrySource.saveCountry(country).then(
     //   this.fetchCountries,
     // ).catch(
@@ -65,19 +59,18 @@ class CountrySection extends Component {
   };
 
   handleDeleteCountry = (countryId) => {
-    const countries = this.state.countries.filter(element => element.id !== countryId);
-    this.setState({ countries });
+    // const countries = this.state.countries.filter(element => element.id !== countryId);
+    // this.setState({ countries });
   }
 
   closeDialog = () => {
     this.props.onCloseDialog();
-    this.setState({ country: undefined });
+    this.setState({ selectedCountryId: undefined });
   }
 
   render() {
-    const { countries } = this.props;
-    const { country } = this.state;
-    const { open, onOpenDialog } = this.props;
+    const { selectedCountryId } = this.state;
+    const { countries, open, onOpenDialog } = this.props;
 
     return (
       <div>
@@ -94,10 +87,10 @@ class CountrySection extends Component {
         </div>
 
         <CountryDialog
-          country={country}
+          country={countries.content[selectedCountryId]}
+          onCloseDialog={this.closeDialog}
           onSaveCountry={this.handleSaveCountry}
           open={open}
-          onCloseDialog={this.closeDialog}
         />
       </div>
     );
@@ -111,6 +104,7 @@ const mapStateToProps = ({ countries }) => {
 };
 const mapDispatchtoProps = {
   onAddCountry: postCountry,
+  onPutCountry: putCountry,
   onFetchCountries: fetchCountries,
 };
 
